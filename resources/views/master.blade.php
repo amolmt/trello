@@ -14,9 +14,13 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="/css/album.css" rel="stylesheet">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+
 </head>
 
-<body>
+<body style="background-color: #58C180;">
 
 <header>
     <div class="navbar navbar-dark bg-dark box-shadow">
@@ -75,7 +79,7 @@
             success: function (card) {
                 // console.log(card);
                 $('#cardName' + id).val('');
-                $('#cards' + id).prepend($('<div class="card-header text-justify">' + card.name + '<input type="checkbox" class="float-right" onclick="deletecard(' + card.id + ')"></div><hr>'));
+                $('#cards' + id).prepend($('<div class="card-header text-justify">' + card.name + '<i class="fas fa-check-square float-right" onclick="deletecard(' + card.id + ')"></i><i class="fas fa-pen-square float-right" style=" padding-right:10px;"></i></div><hr>'));
                 // location.reload();
             },
             error: function (err) {
@@ -107,6 +111,22 @@
                 {{--$("#destroyCard{{$card->id}}").remove();--}}
             },
             error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function editcard(id){
+        var url = "{{url('/edit-card')}}";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {id:id, board_id:board_id, name:name, '_token': '{{ csrf_token() }}'},
+            dataType: "JSON",
+            success: function(card){
+                console.log(card);
+            },
+            error: function(err){
                 console.log(err);
             }
         });
@@ -159,9 +179,9 @@
                     $("#boardName").val('');
                     $('#createBoardModal').modal('hide');
                     $('.card-deck').prepend(
-                        $('<div class="card text-white bg-dark mb-3" style="max-width: 18rem;" id="board('+board.id+')">' +
+                        $('<div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="board('+board.id+')">' +
                             '<input type="hidden" name="boardId" value="' + board.id + '">' +
-                            '<div class="card-header text-center">' + board.name + '<input type="checkbox" class="float-right" onclick="deleteboard(' + board.id + ')"></div>' +
+                            '<div class="card-header text-center">' + board.name + '<i class="fas fa-trash float-right" onclick="deleteboard(' + board.id + ')"></i><i class="fas fa-check float-right" style="padding-right: 10px;"></i></div>' +
                             '<div class="card-body">' +
                             '<textarea placeholder="card details" class="form-control" id="cardName' + board.id + '" name="cardName1"></textarea>' + '<hr>' +
                             '<button type="submit" onclick="addcard(' + board.id + ')" class="btn btn-sm btn-outline-success btn-block" id="createCard' + board.id + '">Add card</button>' +

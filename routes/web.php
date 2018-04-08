@@ -26,3 +26,5 @@ Route::get('/indexCard', 'CardController@index');
 Route::post('/delete-card', 'CardController@destroy');
 
 Route::post('/delete-board', 'CardController@destroyBoard');
+
+Route::post('edit-card', 'CardController@edit');

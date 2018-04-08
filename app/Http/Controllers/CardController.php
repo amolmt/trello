@@ -79,4 +79,20 @@ class CardController extends Controller
         return view('master', compact('cards'));
     }
 
+    public function edit(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $card = new Card();
+            $card->name = $request->name;
+            $card->id = $request->id;
+            $card->board_id = $request->board_id;
+            $card->save();
+            DB::commit();
+            return response()->json($card, 200);
+        } catch (QueryException $e) {
+            DB::rollBack();
+        }
+    }
+
 }

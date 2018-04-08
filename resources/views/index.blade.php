@@ -5,11 +5,13 @@
         <div class="container">
             <div class="card-deck">
                 @foreach($boards as $board)
-                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;" id="board{{$board->id}}">
+                    <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="board{{$board->id}}">
                         <div class="card-header text-center">
+                            <!-- <i class="fas fa-trash"></i> -->
                             {{$board->name}}
-                            <input type="checkbox" class="float-right" id="destroyBoard{{$board->id}}" onclick="deleteboard({{$board->id}})">
-                            {{--todo- trash glyphicon--}}
+                            <!-- <input type="checkbox" class="float-right" id="destroyBoard{{$board->id}}" onclick="deleteboard({{$board->id}})"> -->
+                            <i class="fas fa-trash float-right" id="destroyBoard{{$board->id}}" onclick="deleteboard({{$board->id}})"></i>
+                            <i class="fas fa-check float-right" style="padding-right: 10px;"></i>
                         </div>
                         <div class="card-body">
                             <form>
@@ -25,10 +27,12 @@
                             @foreach($board->cards as $card)
                                 <hr>
                             <div id="cards{{$board->id}}">
-                                <div class="card bg-dark mb-3" style="max-width: 18rem;" id="cards{{$card->id}}">
+                                <div class="card bg-light mb-3" style="max-width: 18rem;" id="cards{{$card->id}}">
                                     <div class="card-header text-justify">
                                         {{$card->name}}
-                                        <input type="checkbox" class="float-right" id="destroyCard{{$card->id}}" onclick="deletecard({{$card->id}})">
+                                        <!-- <input type="checkbox" class="float-right" id="destroyCard{{$card->id}}" onclick="deletecard({{$card->id}})"> -->
+                                        <i class="fas fa-check-square float-right" id="destroyCard{{$card->id}}" onclick="deletecard({{$card->id}})"></i>
+                                        <i class="fas fa-pen-square float-right" style=" padding-right:10px;"></i>
                                     </div>
                                 </div>
                             </div>
