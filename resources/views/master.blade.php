@@ -16,7 +16,8 @@
     <link href="/css/album.css" rel="stylesheet">
 
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
+          integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 
 </head>
 
@@ -79,7 +80,7 @@
             success: function (card) {
                 // console.log(card);
                 $('#cardName' + id).val('');
-                $('#cards' + id).prepend($('<div class="card-header text-justify" contenteditable="true" id="cards'+card.id+'">' + card.name + '<i class="fas fa-check-square float-right" onclick="deletecard(' + card.id + ')"></i><i class="fas fa-pen-square float-right" style=" padding-right:10px;" onclick="editcard(' + card.id + ')"></i></div><hr>'));
+                $('#cards' + id).prepend($('<div class="card-header text-justify" contenteditable="true" id="cards' + card.id + '">' + card.name + '<i class="fas fa-check-square float-right" onclick="deletecard(' + card.id + ')"></i><i class="fas fa-pen-square float-right" style=" padding-right:10px;" onclick="editcard(' + card.id + ')"></i></div><hr>'));
                 // location.reload();
             },
             error: function (err) {
@@ -116,46 +117,46 @@
         });
     }
 
-    function editcard(id){
+    function editcard(id) {
 
         // console.log(id);
         var id = id;
         var url = "{{url('/edit-card')}}";
-        var name = ($("#cards" + id).val());
+        var name = $("#cards" + id).val();
         $.ajax({
             type: "POST",
             url: url,
-            data: {id:id, name:name, '_token': '{{ csrf_token() }}'},
+            data: {id: id, name: name, '_token': '{{ csrf_token() }}'},
             dataType: "JSON",
-            success: function(id){
+            success: function (id) {
                 console.log(id);
             },
-            error: function(err){
+            error: function (err) {
                 console.log(err);
             }
         });
     }
 
-    function destroyboard(id){
+    function destroyboard(id) {
         console.log(id);
         var url = "{{url('/remove-board')}}";
         console.log(id);
         $.ajax({
             type: "POST",
             url: url,
-            data: {id:id, '_token': '{{ csrf_token() }}'},
+            data: {id: id, '_token': '{{ csrf_token() }}'},
             dataType: "JSON",
-            success: function(id){
+            success: function (id) {
                 // console.log(id);
             },
-            error: function(err){
+            error: function (err) {
                 console.log(err);
             }
         });
     }
 
     function deleteboard(board_id) {
-        var r=confirm("Are you sure?!");
+        var r = confirm("Are you sure?!");
         var txt;
         if (r == true) {
             var url = "{{url('/delete-board')}}";
@@ -202,7 +203,7 @@
                     $("#boardName").val('');
                     $('#createBoardModal').modal('hide');
                     $('.card-deck').prepend(
-                        $(' <div id="remove_all_cards"><div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="board('+board.id+')">' +
+                        $(' <div id="remove_all_cards"><div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="board(' + board.id + ')">' +
                             '<input type="hidden" name="boardId" value="' + board.id + '">' +
                             '<div class="card-header text-center">' + board.name + '<i class="fas fa-trash float-right" onclick="destroyboard(' + board.id + ')"></i><i class="fas fa-check float-right" style="padding-right: 10px;" onclick="deleteboard(' + board.id + ')"></i></div>' +
                             '<div class="card-body">' +

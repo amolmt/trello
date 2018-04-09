@@ -81,7 +81,7 @@ class CardController extends Controller
 
     public function edit(Request $request)
     {
-        print_r($request->all());exit;
+//        dd($request->all());
         $id = $request->id;
         $name = $request->name;
         $card = Card::find($id);
