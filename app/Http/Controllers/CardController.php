@@ -82,10 +82,11 @@ class CardController extends Controller
     public function edit(Request $request)
     {
 //        dd($request->all());
+        print_r($request->all());
         $id = $request->id;
-        $name = $request->name;
+//        $name = $request->name;
         $card = Card::find($id);
-        $card->name = $name;
+        $card->name = $request->name;
         $card->save();
 
         return response()->json($id, '200');

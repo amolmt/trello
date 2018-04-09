@@ -129,7 +129,7 @@
             data: {id: id, name: name, '_token': '{{ csrf_token() }}'},
             dataType: "JSON",
             success: function (id) {
-                console.log(id);
+                // console.log(id);
             },
             error: function (err) {
                 console.log(err);
