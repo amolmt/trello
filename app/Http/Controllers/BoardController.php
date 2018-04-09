@@ -47,6 +47,7 @@ class BoardController extends Controller
 
     public function destroy(Request $request)
     {
+//        print_r($request->all());exit;
         $id = $request->id;
         $board = Board::find($id);
         $board->status = 0;

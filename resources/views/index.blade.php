@@ -10,8 +10,8 @@
                             <!-- <i class="fas fa-trash"></i> -->
                             {{$board->name}}
                             <!-- <input type="checkbox" class="float-right" id="destroyBoard{{$board->id}}" onclick="deleteboard({{$board->id}})"> -->
-                            <i class="fas fa-trash float-right" id="destroyBoard{{$board->id}}" onclick="deleteboard({{$board->id}})"></i>
-                            <i class="fas fa-check float-right" style="padding-right: 10px;"></i>
+                            <i class="fas fa-trash float-right" onclick="destroyboard(' + board.id + ')"></i>
+                            <i class="fas fa-check float-right" style="padding-right: 10px;" id="destroyBoard{{$board->id}}" onclick="deleteboard({{$board->id}})"></i>
                         </div>
                         <div class="card-body">
                             <form>
@@ -26,15 +26,16 @@
                             </form>
                             @foreach($board->cards as $card)
                                 <hr>
+                            <div id="remove_all_cards">
                             <div id="cards{{$board->id}}">
-                                <div class="card bg-light mb-3" style="max-width: 18rem;" id="cards{{$card->id}}">
+                                <div class="card bg-light mb-3" style="max-width: 18rem;" id="cards{{$card->id}}" contenteditable="true">
                                     <div class="card-header text-justify">
                                         {{$card->name}}
-                                        <!-- <input type="checkbox" class="float-right" id="destroyCard{{$card->id}}" onclick="deletecard({{$card->id}})"> -->
                                         <i class="fas fa-check-square float-right" id="destroyCard{{$card->id}}" onclick="deletecard({{$card->id}})"></i>
-                                        <i class="fas fa-pen-square float-right" style=" padding-right:10px;"></i>
+                                        <i class="fas fa-pen-square float-right" style=" padding-right:10px;" onclick="editcard({{$card->id}})"></i>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                             @endforeach
                         </div>

@@ -81,18 +81,14 @@ class CardController extends Controller
 
     public function edit(Request $request)
     {
-        try {
-            DB::beginTransaction();
-            $card = new Card();
-            $card->name = $request->name;
-            $card->id = $request->id;
-            $card->board_id = $request->board_id;
-            $card->save();
-            DB::commit();
-            return response()->json($card, 200);
-        } catch (QueryException $e) {
-            DB::rollBack();
-        }
+        print_r($request->all());exit;
+        $id = $request->id;
+        $name = $request->name;
+        $card = Card::find($id);
+        $card->name = $name;
+        $card->save();
+
+        return response()->json($id, '200');
     }
 
 }

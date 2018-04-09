@@ -27,4 +27,6 @@ Route::post('/delete-card', 'CardController@destroy');
 
 Route::post('/delete-board', 'CardController@destroyBoard');
 
-Route::post('edit-card', 'CardController@edit');
+Route::post('/edit-card', 'CardController@edit');
+
+Route::post('/remove-board', 'BoardController@destroy');

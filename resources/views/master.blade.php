@@ -79,7 +79,7 @@
             success: function (card) {
                 // console.log(card);
                 $('#cardName' + id).val('');
-                $('#cards' + id).prepend($('<div class="card-header text-justify">' + card.name + '<i class="fas fa-check-square float-right" onclick="deletecard(' + card.id + ')"></i><i class="fas fa-pen-square float-right" style=" padding-right:10px;"></i></div><hr>'));
+                $('#cards' + id).prepend($('<div class="card-header text-justify" contenteditable="true" id="cards'+card.id+'">' + card.name + '<i class="fas fa-check-square float-right" onclick="deletecard(' + card.id + ')"></i><i class="fas fa-pen-square float-right" style=" padding-right:10px;" onclick="editcard(' + card.id + ')"></i></div><hr>'));
                 // location.reload();
             },
             error: function (err) {
@@ -117,14 +117,36 @@
     }
 
     function editcard(id){
+
+        // console.log(id);
+        var id = id;
         var url = "{{url('/edit-card')}}";
+        var name = ($("#cards" + id).val());
         $.ajax({
             type: "POST",
             url: url,
-            data: {id:id, board_id:board_id, name:name, '_token': '{{ csrf_token() }}'},
+            data: {id:id, name:name, '_token': '{{ csrf_token() }}'},
             dataType: "JSON",
-            success: function(card){
-                console.log(card);
+            success: function(id){
+                console.log(id);
+            },
+            error: function(err){
+                console.log(err);
+            }
+        });
+    }
+
+    function destroyboard(id){
+        console.log(id);
+        var url = "{{url('/remove-board')}}";
+        console.log(id);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {id:id, '_token': '{{ csrf_token() }}'},
+            dataType: "JSON",
+            success: function(id){
+                // console.log(id);
             },
             error: function(err){
                 console.log(err);
@@ -150,7 +172,8 @@
                 success: function (cards) {
                     console.log("deleted");
 
-                    $("#board" + board_id).remove();
+                    // $("#cards" + board_id).remove();
+                    $("#remove_all_cards").remove();
 
                     {{--$("#destroyCard{{$card->id}}").remove();--}}
                     // location.reload();
@@ -179,9 +202,9 @@
                     $("#boardName").val('');
                     $('#createBoardModal').modal('hide');
                     $('.card-deck').prepend(
-                        $('<div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="board('+board.id+')">' +
+                        $(' <div id="remove_all_cards"><div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="board('+board.id+')">' +
                             '<input type="hidden" name="boardId" value="' + board.id + '">' +
-                            '<div class="card-header text-center">' + board.name + '<i class="fas fa-trash float-right" onclick="deleteboard(' + board.id + ')"></i><i class="fas fa-check float-right" style="padding-right: 10px;"></i></div>' +
+                            '<div class="card-header text-center">' + board.name + '<i class="fas fa-trash float-right" onclick="destroyboard(' + board.id + ')"></i><i class="fas fa-check float-right" style="padding-right: 10px;" onclick="deleteboard(' + board.id + ')"></i></div>' +
                             '<div class="card-body">' +
                             '<textarea placeholder="card details" class="form-control" id="cardName' + board.id + '" name="cardName1"></textarea>' + '<hr>' +
                             '<button type="submit" onclick="addcard(' + board.id + ')" class="btn btn-sm btn-outline-success btn-block" id="createCard' + board.id + '">Add card</button>' +
@@ -189,7 +212,7 @@
                             '<div class="card-footer">' +
                             '<small class="text-muted">' + date + board.updated_at + '</small>' +
                             '</div>' +
-                            '</div>'
+                            '</div></div>'
                         )
                     );
                 },
