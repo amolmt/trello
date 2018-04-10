@@ -51,6 +51,7 @@ class CardController extends Controller
 
     public function destroy(Request $request)
     {
+//        print_r($request->all());
         $id = $request->id;
         $card = Card::find($id);
         $card->status = 0;
@@ -82,7 +83,7 @@ class CardController extends Controller
     public function edit(Request $request)
     {
 //        dd($request->all());
-        print_r($request->all());
+//        print_r($request->all());
         $id = $request->id;
 //        $name = $request->name;
         $card = Card::find($id);
